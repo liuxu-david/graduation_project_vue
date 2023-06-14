@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // let select=[1,2];
+    // let arr=[[{"mData":3,"title":"14:00-15:00"},{"mData":4,"title":"15:00-16:00"},{"mData":5,"title":"16:00-17:00"}],
+    // [],
+    // [{"mData":12,"title":"2023/05/13<br>09:00-10:00"},{"mData":13,"title":"10:00-11:00"}
+    //  ,{"mData":14,"title":"11:00-12:00"},{"mData":15,"title":"14:00-15:00"},{"mData":16,"title":"15:00-16:00"},{"mData":17,"title":"16:00-17:00"}]]
+    // //  let filterTime=[{"mData":3,"title":"14:00-15:00"},{"mData":4,"title":"15:00-16:00"},{"mData":5,"title":"16:00-17:00"},
+    // //  {"mData":12,"title":"2023/05/13<br>09:00-10:00"},{"mData":13,"title":"10:00-11:00"}
+    // //  ,{"mData":14,"title":"11:00-12:00"},{"mData":15,"title":"14:00-15:00"},{"mData":16,"title":"15:00-16:00"},{"mData":17,"title":"16:00-17:00"}]
+    // let result=[];
+    // for(let i=0;i<select.length;i++){
+    //   result.push(arr[select[i]])
+    // } 
+    // console.log(result.flat());
+    let a = ["第1天", "第6天", "第8天", "第18天", "第21天"];
+    let reg= /\d+/g;
+    let result=a.map(item=>parseInt(item.match(reg)[0]))
+    console.log(result);
+  </script>
+</body>
+</html>

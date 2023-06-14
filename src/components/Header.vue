@@ -9,6 +9,9 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu>
+            <el-dropdown-item @click="handleChangePossword"
+              >修改密码</el-dropdown-item
+            >
             <el-dropdown-item @click="handleExitClick"
               >退出登录</el-dropdown-item
             >
@@ -16,6 +19,27 @@
         </template>
       </el-dropdown>
     </div>
+    <el-dialog
+      v-model="dialogVisible"
+      title="修改个人密码"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <el-row :gutter="10">
+        <el-input
+          v-model="inputValue"
+          placeholder="请输入需要修改的密码"
+        ></el-input>
+      </el-row>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleConcelClick">取消</el-button>
+          <el-button type="danger" @click="handleSuccessClick">
+            修改
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -23,14 +47,42 @@
   import { ref } from "vue";
   import { useRouter } from "vue-router";
   import loginDataUtils from "@/utils/loginData";
+  import { changeToPassword } from "@/service/login";
 
   const url = new URL("@/assets/login.webp", import.meta.url).href;
-  // const userName = loginDataUtils.getLoginData("username");
   const router = useRouter();
+  let flag = loginDataUtils.getLoginData("flag");
+  let id = loginDataUtils.getLoginData("id");
+  let dialogVisible = ref(false);
+  let inputValue = ref("");
+
+  // 点击修改密码
+  const handleChangePossword = () => {
+    dialogVisible.value = true;
+  };
+  const handleClose = () => {
+    dialogVisible.value = false;
+    inputValue.value = "";
+  };
+  const handleConcelClick = () => {
+    dialogVisible.value = false;
+    inputValue.value = "";
+  };
+  const handleSuccessClick = () => {
+    dialogVisible.value = false;
+    changeToPassword(id, inputValue.value, flag).then((res) => {
+      ElMessage({
+        message: res.data.info,
+        type: "success",
+      });
+    });
+    inputValue.value = "";
+    handleExitClick();
+  };
 
   // 点击退出操作
   const handleExitClick = () => {
-    loginDataUtils.removeLoginData("token");
+    loginDataUtils.removeAllData();
     router.push("/login");
   };
 </script>

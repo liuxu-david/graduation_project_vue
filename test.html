@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+     let allTime=[{"mData":0,"title":"2023/05/11<br>09:00-10:00"},{"mData":1,"title":"10:00-11:00"},
+     {"mData":2,"title":"11:00-12:00"},{"mData":3,"title":"14:00-15:00"},{"mData":4,"title":"15:00-16:00"},{"mData":5,"title":"16:00-17:00"},
+     {"mData":6,"title":"2023/05/12<br>09:00-10:00"},{"mData":7,"title":"10:00-11:00"},{"mData":8,"title":"11:00-12:00"},
+     {"mData":9,"title":"14:00-15:00"},{"mData":10,"title":"15:00-16:00"},{"mData":11,"title":"16:00-17:00"},
+     {"mData":12,"title":"2023/05/13<br>09:00-10:00"},{"mData":13,"title":"10:00-11:00"},{"mData":14,"title":"11:00-12:00"},
+     {"mData":15,"title":"14:00-15:00"},{"mData":16,"title":"15:00-16:00"},{"mData":17,"title":"16:00-17:00"}]
+     let newAllTime=[];
+     let a=6;
+    for(let i=0;i<3;i++){
+      let start=a*i;
+      let end=start+a;
+      newAllTime.push(allTime.slice(start,end))
+    }
+     let filterTime=[{"mData":3,"title":"14:00-15:00"},{"mData":4,"title":"15:00-16:00"},{"mData":5,"title":"16:00-17:00"},
+     {"mData":12,"title":"2023/05/13<br>09:00-10:00"},{"mData":13,"title":"10:00-11:00"}
+     ,{"mData":14,"title":"11:00-12:00"},{"mData":15,"title":"14:00-15:00"},{"mData":16,"title":"15:00-16:00"},{"mData":17,"title":"16:00-17:00"}]
+     let result=[];
+    for(let i=0;i<newAllTime.length;i++){
+      let filteredArray = newAllTime[i].filter(item => JSON.stringify(filterTime).includes(JSON.stringify(item)));
+        result.push(filteredArray);
+    }
+    
+  </script>
+</body>
+</html>

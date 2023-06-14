@@ -49,38 +49,86 @@
   import { loginRules } from "@/utils/loginRules";
   import loginDataUtils from "@/utils/loginData";
   import { getLogin } from "../service/login";
-
+  import { generateMenu } from "../utils/generateMenu";
   const loginForm = ref(null);
   const loginFormData = reactive({
-    account: "",
-    password: "",
+    account: "17760214036",
+    password: "123456",
     checkValue: [false, false, false],
   });
   const rules = ref(loginRules);
   const router = useRouter();
+  let flag = 0;
 
   // 表单提交事件
   const handleSubmitClick = () => {
     loginForm.value.validate((valid) => {
       if (!valid) return;
       // 表单校验成功，调用登录接口
-      // 调用登录接口，跳转到主页
-      console.log(loginFormData.checkValue);
-      getLogin(loginFormData.account, loginFormData.password)
-        .then((res) => {
-          if (res.data.code == 200) {
-            const { token } = res.data;
-            loginDataUtils.setLoginData("token", token);
-            // 在这里请求后台获取能够操控的路由
-            // 跳转到应进的路由表
-            router.push("/");
-          } else {
-            alert("用户登录失败!");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // 调用登录接口，跳转到各自身份的主页
+      let checkValue = loginFormData.checkValue;
+      if (checkValue["0"]) {
+        flag = 0;
+        loginDataUtils.setLoginData("flag", 0);
+        getLogin(loginFormData.account, loginFormData.password, flag)
+          .then((res) => {
+            if (res.data.code == 200) {
+              const { token, result } = res.data;
+              loginDataUtils.setLoginData("id", result._id);
+              loginDataUtils.setLoginData("token", token);
+              router.push("/manager");
+              const Menu = generateMenu(router.getRoutes(), "/manager");
+              loginDataUtils.setLoginData("menu", JSON.stringify(Menu));
+            } else {
+              alert("用户登录失败!");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      if (checkValue["1"]) {
+        flag = 1;
+        loginDataUtils.setLoginData("flag", 1);
+        getLogin(loginFormData.account, loginFormData.password, flag)
+          .then((res) => {
+            if (res.data.code == 200) {
+              const { token, result } = res.data;
+              loginDataUtils.setLoginData("id", result._id);
+              loginDataUtils.setLoginData("token", token);
+              router.push("/teacher");
+              const Menu = generateMenu(router.getRoutes(), "/teacher");
+              loginDataUtils.setLoginData("menu", JSON.stringify(Menu));
+            } else {
+              alert("用户登录失败!");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      if (checkValue["2"]) {
+        flag = 2;
+        loginDataUtils.setLoginData("flag", 2);
+        getLogin(loginFormData.account, loginFormData.password, flag)
+          .then((res) => {
+            if (res.data.code == 200) {
+              const { token, result } = res.data;
+              console.log(result);
+              loginDataUtils.setLoginData("id", result._id);
+              loginDataUtils.setLoginData("token", token);
+              router.push("/student");
+              const Menu = generateMenu(router.getRoutes(), "/student");
+              console.log(Menu);
+              loginDataUtils.setLoginData("menu", JSON.stringify(Menu));
+            } else {
+              alert("用户登录失败!");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     });
   };
 </script>

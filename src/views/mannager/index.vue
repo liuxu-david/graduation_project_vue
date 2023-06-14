@@ -11,14 +11,14 @@
 </template>
 
 <script setup>
-  import Header from "./components/Header.vue";
-  import Aside from "./components/Aside.vue";
+  import Header from "@/components/Header.vue";
+  import Aside from "@/components/Aside.vue";
 </script>
 
 <style lang="less" scoped>
   .el-container {
     height: 100vh;
-    background-color: #f0f0f0;
+    // background-color: #f0f0f0;
     .el-aside {
       background-color: #fff;
       border: 1px solid #ccc;
@@ -31,7 +31,8 @@
       border: 1px solid #ccc;
     }
     .el-main {
-      padding: 20px;
+      --el-main-padding: 0px;
+      // padding-top: 40px;
     }
   }
 </style>

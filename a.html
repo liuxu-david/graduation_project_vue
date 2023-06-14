@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let allTime = [
+  {"mData":0,"title":"2023/05/11<br>09:00-10:00"},
+  {"mData":1,"title":"10:00-11:00"},
+  {"mData":2,"title":"11:00-12:00"},
+  {"mData":3,"title":"14:00-15:00"},
+  {"mData":4,"title":"15:00-16:00"},
+  {"mData":5,"title":"16:00-17:00"},
+  {"mData":6,"title":"2023/05/12<br>09:00-10:00"},
+  {"mData":7,"title":"10:00-11:00"},
+  {"mData":8,"title":"11:00-12:00"},
+  {"mData":9,"title":"14:00-15:00"},
+  {"mData":10,"title":"15:00-16:00"},
+  {"mData":11,"title":"16:00-17:00"},
+  {"mData":12,"title":"2023/05/13<br>09:00-10:00"},
+  {"mData":13,"title":"10:00-11:00"},
+  {"mData":14,"title":"11:00-12:00"},
+  {"mData":15,"title":"14:00-15:00"},
+  {"mData":16,"title":"15:00-16:00"},
+  {"mData":17,"title":"16:00-17:00"}
+];
+
+const startDate = "2023/05/11";
+const endDate = "2023/05/13";
+const numDays = 3;
+
+const result = [];
+let currentDayArray = [];
+
+for (let i = 0; i < allTime.length; i++) {
+  const title = allTime[i].title;
+  const date = title.substring(0, 10); // 提取日期部分
+  const mData = allTime[i].mData;
+
+  if (date >= startDate && date <= endDate) {
+    currentDayArray.push(mData);
+  }
+
+  if (currentDayArray.length === numDays) {
+    result.push(currentDayArray);
+    currentDayArray = [];
+  }
+}
+
+console.log(result);
+  </script>
+</body>
+</html>
